@@ -8,11 +8,15 @@ profile.QUALITY = 品質
 profile.PERFORMANCE = 性能
 
 screen.Misc_Settings = 雜項設定
+    screen.Misc_Settings.comment = 一些除錯或其他有趣東西的相關設定。
 screen.Sun_and_Moon_Colors = 日月色彩
+    screen.Sun_and_Moon_Colors.comment = 配置太陽或月亮的顏色。
 option.sunPathRotation = 日月仰角
     option.sunPathRotation.comment = 日月於正午時與天頂的夾角。0即日正當中，正數偏北、負數偏南。該值也會影響光照色彩。
 option.sun_illuminance = 太陽照度
+    option.sun_illuminance.comment = 配置陽光的亮度。
 option.moon_illuminance = 月亮照度
+    option.moon_illuminance.comment = 配置月光的亮度。
 option.MOONPHASE_BASED_MOONLIGHT = 月相亮度等級
 
 option.RESOURCEPACK_SKY = 資源包天空
@@ -26,14 +30,19 @@ screen.Waving_Stuff = 搖動物品
     option.WAVY_SPEED = 搖動速率
 
 screen.Direct_Light = 直射光
+    screen.Direct_Light.comment = 配置與陽光和陰影相關的設定。
     screen.Shadows = 陰影
+        screen.Shadows.comment = 根據您的喜好配置太光的陰影。
         option.TRANSLUCENT_COLORED_SHADOWS = 彩色陰影
         option.SCREENSPACE_CONTACT_SHADOWS = 螢幕空間接觸陰影
+            option.SCREENSPACE_CONTACT_SHADOWS.comment = §b這是什麼？§r這些是指遠處物體和近處小細節的陰影。 §a性能消耗：§r低到中；解析度越高越耗費性能。
         option.RENDER_ENTITY_SHADOWS = 彩現實體陰影
+            option.RENDER_ENTITY_SHADOWS.comment =  §b這是什麼？§r所有類型的實體如生物、箱子、旗幟或告示牌的陰影。 §a性能消耗：§r低到高；當附近有很多實體時會非常耗費性能。
         option.RENDER_PLAYER_SHADOWS = 彩現玩家陰影
         option.shadowMapResolution = 陰影貼圖解析度
-            option.shadowMapResolution.comment = ※小心！設為16384時會當機！
+                option.shadowMapResolution.comment = 遊戲世界中因陽光投射物體造成的陰影的品質。 §a性能消耗：§r中到非常高；陰影必須從太陽的投射來對3D世界再次彩現，這就是為什麼它會使性能砍半。
         option.shadowDistance = 陰影距離
+            option.shadowDistance.comment = 陰影貼圖可以彩現的最大距離。當「陰影距離最佳化」未啟用時，距離與區塊為非線性關係。 §a性能消耗：§r中到非常高；如果區塊彩現距離較遠，陰影將變得更加耗費性能。
             value.shadowDistance.32.0 = 2區塊
             value.shadowDistance.48.0 = 3區塊
             value.shadowDistance.64.0 = 4區塊
@@ -65,7 +74,8 @@ screen.Direct_Light = 直射光
             value.shadowDistance.4096.0 = 256區塊
             value.shadowDistance.8192.0 = 512區塊
 
-        option.OPTIMIZED_SHADOW_DISTANCE = 最大陰影範圍
+        option.OPTIMIZED_SHADOW_DISTANCE = 陰影距離最佳化
+            option.OPTIMIZED_SHADOW_DISTANCE.comment = 僅彩現以你為中心、以「陰影距離」為半徑的球體範圍中的陰影。當設定為未最佳化時，不會彩現球體範圍中的陰影；「陰影距離」與區塊亦為非線性關係，在相同的距離設定下，它可以覆蓋更廣的區域。 §a性能消耗：§r低到中；最佳化之性能較佳，反之較差。
             value.OPTIMIZED_SHADOW_DISTANCE.-1.0 = 未最佳化
             value.OPTIMIZED_SHADOW_DISTANCE.1.0 = 最佳化
         option.entityShadowDistanceMul = 實體陰影距離
@@ -86,62 +96,85 @@ screen.Direct_Light = 直射光
             value.entityShadowDistanceMul.0.75 = 陰影距離的75%
             value.entityShadowDistanceMul.1.00 = 陰影距離的100%
 
-    screen.Filtering = 陰影過濾設定
-        screen.Filtering.comment = 光線完全被物體遮蔽的區域稱為本影區；本影周圍還會有因光線部分被遮蔽而形成的半影區。過濾就是在控制半影的過渡效果。
-        option.SHADOW_FILTER_SAMPLE_COUNT = 陰影過濾樣本數
-        option.Min_Shadow_Filter_Radius = 最小陰影過濾半徑
-            option.Min_Shadow_Filter_Radius.comment = 未啟用VPS時，陰影過濾半徑固定為此選項的數值。
-        option.Variable_Penumbra_Shadows = 可變半影(VPS)
-            option.Variable_Penumbra_Shadows.comment = 半影大小(過濾半徑)將隨物體與投影面的距離而改變。
-        option.VPS_Search_Samples = VPS搜尋樣本
-        option.Max_Shadow_Filter_Radius = 最大陰影過濾半徑
-            option.Max_Shadow_Filter_Radius.comment = 未啟用VPS時，此選項不會作用。
-        option.Max_Filter_Depth = 最大過濾深度
-            option.Max_Filter_Depth.comment = 物體與投影面的距離達到此數值時，陰影過濾半徑將達到最大值。
-        
+    screen.Filtering = 陰影過渡設定
+        screen.Filtering.comment = 光線完全被物體遮蔽的區域稱為本影區；本影周圍還會有因光線部分被遮蔽而形成的半影區，有較柔和的陰影，過渡於光亮區與陰暗區之間。
+        option.SHADOW_FILTER_SAMPLE_COUNT = 陰影過渡樣本數
+            option.SHADOW_FILTER_SAMPLE_COUNT.comment = 基本陰影過渡的品質。只作用於半影區。 §a性能消耗：§r低到中；提高此值應該會減少陰影邊緣的一些雜訊。
+        option.Min_Shadow_Filter_Radius = 最小陰影過渡半徑
+            option.Min_Shadow_Filter_Radius.comment = 未啟用「可變半影」時，此選項為基本陰影過渡的最大半影半徑值。
+        option.Variable_Penumbra_Shadows = 可變半影
+            option.Variable_Penumbra_Shadows.comment = 半影半徑將隨物體與投影面的距離而改變。此效果用於創建更高品質的陰影和次表面散射。 §a性能消耗：§r低到高。
+        option.VPS_Search_Samples = 可變半影搜尋樣本
+            option.VPS_Search_Samples.comment = 可變半影過渡的品質。 §a性能消耗：§r低到高；提高此值應該會減少次表面散射的一些雜訊並大幅柔化陰影。
+        option.Max_Shadow_Filter_Radius = 最大陰影過渡半徑
+            option.Max_Shadow_Filter_Radius.comment = 投影面遠離物體能產生的最大半影半徑。未啟用「可變半影」時，此選項不會作用。
+        option.Max_Filter_Depth = 最大過渡深度
+            option.Max_Filter_Depth.comment = 物體與投影面的距離達到此數值時，陰影過渡半徑將達到最大值。
+
     screen.LPV = 溢流演算法 - §cIRIS必須§r
         option.LPV_ENABLED = 啟用
         option.LPV_SIZE = 規模
+            option.LPV_SIZE.comment = 配置彩色照明體積的大小（以方塊為單位）。
             value.LPV_SIZE.6 = 小[64]
             value.LPV_SIZE.7 = 中[128]
             value.LPV_SIZE.8 = 大[256]
         option.LPV_SATURATION = 光照飽和度
+            option.LPV_SATURATION.comment = 配置彩色照明的鮮豔度。
             suffix.LPV_SATURATION = %
         option.LPV_TINT_SATURATION = 色調飽和度
+            option.LPV_TINT_SATURATION.comment = 配置彩色照明對半透明方塊的色調鮮豔度。
             suffix.LPV_TINT_SATURATION = %
         option.LPV_NORMAL_STRENGTH = 法線強度
+            option.LPV_NORMAL_STRENGTH.comment = 配置將影響照明方向的表面法線數量。
             suffix.LPV_NORMAL_STRENGTH = %
             value.LPV_NORMAL_STRENGTH.0 = 關閉
         option.LPV_ENTITY_LIGHTS = 實體光源
+            option.LPV_ENTITY_LIGHTS.comment = 允許實體貢獻彩色照明。
         option.LPV_REDSTONE_LIGHTS = 紅石光源
+            option.LPV_REDSTONE_LIGHTS.comment = 允許紅石方塊貢獻彩色照明。
         option.LPV_COLORED_CANDLES = 彩色蠟燭
-        option.LPV_NOSHADOW_HACK = Iris <= 1.7.0 修復
+            option.LPV_COLORED_CANDLES.comment = 允許彩色蠟燭發出與之顏色相匹的光。
+        option.LPV_NOSHADOW_HACK = Iris 1.7.0 修復
+            option.LPV_NOSHADOW_HACK.comment = 為Iris 1.7.0及更低版本提供修復！允許溢流演算法在地獄和終界中作用，但停用實體和掉落物品的照明。
 
 screen.Subsurface_Scattering = 次表面散射(SSS)
+    screen.Subsurface_Scattering.comment = §b這是什麼？§r當強光在手中發亮時，就會發生次表面散射。實際上陽光對植物、布料、皮膚和其他東西也有同樣的作用。
     option.LabSSS_Curve = LabSSS曲線
     option.MISC_BLOCK_SSS = 隨機方塊次表面散射
+        option.MISC_BLOCK_SSS.comment = 開關可能不適用的隨機方塊的次表面散射。主要用於草地和沙子。 §a性能消耗：§r非常低。
     option.MOB_SSS = 生物次表面散射
+        option.MOB_SSS.comment = 開關對於生物的次表面散射。此選項也包含玩家。 §a性能消耗：§r非常低。
     option.Ambient_SSS = 環境光次表面散射
+        option.Ambient_SSS.comment = §b這是什麼？§r來自天空的光而非陽光的次表面散射。 §a性能消耗：§r非常低到中；如果啟用「螢幕空間環境光遮蔽」，則耗能非常低，但如果「螢幕空間環境光遮蔽」關閉，耗能會提高。
     option.ambientsss_brightness = 環境光次表面散射亮度
+        option.ambientsss_brightness.comment = 配置環境光次表面散射的亮度。
     option.SSS_TYPE = 次表面散射模式
+        option.SSS_TYPE.comment = 配置如何將次表面散射應用於遊戲世界。 §b硬編碼：§r由著色器決定。 §bLabSSS：§r由資源包決定。 §a性能消耗：§r非常低。
         value.SSS_TYPE.0 = 無
         value.SSS_TYPE.1 = 僅硬編碼
         value.SSS_TYPE.2 = 硬編碼 + LabSSS
         value.SSS_TYPE.3 = 僅LabSSS
 
-
 screen.Ambient_light = 環境光
-    screen.Ambient_light.comment = 環境光會根據周圍環境的情況，以不同方式呈現你看到的物體亮度，如方塊的角落或邊緣會變得較暗。
+    screen.Ambient_light.comment = 配置環境光(與陰影位置相關的照明)設定。環境光會根據周圍環境的情況，以不同方式呈現你看到的物體亮度，如方塊的角落或邊緣會變得較暗。
     option.AO_Strength = 環境光遮蔽強度
+        option.AO_Strength.comment = 配置「螢幕空間環境光遮蔽」、「地表實況環境光遮蔽」、「光線追蹤環境光遮蔽」和「螢幕空間全域照明」的環境光遮蔽強度。 §b這是什麼？§r環境光遮蔽是指角落等地方的小型柔和陰影。
     option.GI_Strength = 全域照明強度
+        option.GI_Strength.comment = 配置「螢幕空間全域照明」的全域照明強度。 §b這是什麼？§r全域照明在此具體是指從物體表面反射到其他區域的光。
     option.HQ_SSGI = 長程螢幕空間全域照明
+        option.HQ_SSGI.comment = 開關長程螢幕空間全域照明。 §a性能消耗：§r非常高。
     option.Hand_Held_lights = 手持光源
+        option.Hand_Held_lights.comment = 開關著色器端手持光源 §a性能消耗：§r非常低。
     option.SKY_CONTRIBUTION_IN_SSRT = 高品質環境光
+        option.SKY_CONTRIBUTION_IN_SSRT.comment = 讓「光線追蹤環境光遮蔽」或「螢幕空間全域照明」考慮整個天空和霧氣，為陰影區域創建高品質的照明。這可能會產生更多雜訊。 §a性能消耗：§r中。
     option.ambientOcclusionLevel = 原版環境光遮蔽等級
+        option.ambientOcclusionLevel.comment = 配置原版Minecraft環境光遮蔽的強度。 §b這是什麼？§r即使沒有啟用著色器，這種環境光遮擋也會存在於Minecraft中。
     option.ambient_brightness = 環境光亮度
+        option.ambient_brightness.comment = 配置陰影區域的照明亮度。
     option.MIN_LIGHT_AMOUNT = 最小光源亮度
-        option.MIN_LIGHT_AMOUNT.comment = 允許被彩現的最低光量。有助於避免螢幕上的黑點。
+        option.MIN_LIGHT_AMOUNT.comment = 配置陰影區域允許被彩現的最低光量。有助於避免螢幕上的黑點。
     option.indirect_effect = 間接光
+        option.indirect_effect.comment = 切換不同類型的效果，使陰影區域的照明品質更高。 §a性能消耗：§r原版環境光遮蔽:非常低。螢幕空間環境光遮蔽：低到中。地表實況環境光遮蔽：中到高。光線追蹤環境光遮蔽或螢幕空間全域照明：高到非常高。
         value.indirect_effect.0 = 原版環境光遮蔽
             value.indirect_effect.1 = 螢幕空間環境光遮蔽
             value.indirect_effect.2 = 地表實況環境光遮蔽
@@ -149,6 +182,7 @@ screen.Ambient_light = 環境光
             value.indirect_effect.4 = 螢幕空間全域照明
 
     screen.Ambient_Colors =  環境光色彩
+        screen.Ambient_Colors.comment = 配置陰影區域的光照顏色。
         option.AmbientLight_R = 紅光
         option.AmbientLight_G = 綠光
         option.AmbientLight_B = 藍光
@@ -157,7 +191,7 @@ screen.Ambient_light = 環境光
             value.ambient_colortype.1 = RGB
     
     screen.Torch_Colors = 光源色彩
-        screen.Torch_Colors.comment = ※原文雖然是Torch，但實際是指所有光源，不僅是火把。
+        screen.Torch_Colors.comment = 配置火把或其他可放置光源的發光顏色。
         option.TORCH_AMOUNT = 亮度
         option.TORCH_R = 紅光
         option.TORCH_G = 綠光
@@ -165,18 +199,26 @@ screen.Ambient_light = 環境光
     
 
 screen.Fog = 霧氣設定
-    option.VL_RENDER_RESOLUTION = 體積光彩現解析度
-    option.VL_SAMPLES = 體積光取樣數
-        option.VL_SAMPLES.comment = 數值越高越lag，但效果也越逼真。
+    screen.Fog.comment = 配置與光線行進體積霧或基於距離的霧相關的設定。
+    option.VL_RENDER_RESOLUTION = 體積霧彩現解析度
+        option.VL_RENDER_RESOLUTION.comment = 配置體積霧的解析度。 §a性能消耗：§r高。
+    option.VL_SAMPLES = 體積霧取樣數
+        option.VL_SAMPLES.comment = 配置體積霧的品質。數值越高越lag，但效果也越逼真。 §a性能消耗：§r高。
     option.BLOOMY_FOG = 光暈霧
+        option.BLOOMY_FOG.comment = 配置應用於霧氣的光暈強度。 §b這是什麼？§r此效果使霧氣看起來柔和，也有助於隱藏一些雜訊。可能會導致細節邊緣出現一些明顯的閃爍。 §a性能消耗：§r非常低。
     option.Haze_amount = 大氣霧霾密度
+        option.Haze_amount.comment = 配置你周圍的大氣密度。 §b這是什麼？§r這是你會在遠處看到的藍色霧霾。
     option.RainFog_amount = 雨天霧氣倍率
-    option.RAYMARCH_CLOUDS_WITH_FOG = 將雲作為霧氣來彩線 §c(閱讀說明)§r
+        option.RainFog_amount.comment = 配置霧氣在雨天時的濃度。
+    option.RAYMARCH_CLOUDS_WITH_FOG = 將雲作為霧氣來彩現 §c(閱讀說明)§r
+        option.RAYMARCH_CLOUDS_WITH_FOG.comment = §c警告§r：這是實驗性設定，製作還不完善！你需要增加「體積霧取樣數」使其能匹配正常的雲。開關進入雲層內部或靠近周圍雲層時顯示更細緻的霧氣。 §a性能消耗：§r高。
     option.BorderFog = 區塊邊界霧氣
+        option.BorderFog.comment = §b這是什麼？§r 開關掩蓋已載入的區塊的霧氣。但因為天空到處都在，所以很難做好這個效果。 §a性能消耗：§r非常非常低。
 
     screen.TOD_fog = 時序霧氣
-        screen.TOD_fog.comment = 隨遊戲時間變化而改變的霧氣。
+        screen.TOD_fog.comment = 配置隨遊戲時間變化而改變的霧氣。
         option.TOD_Fog_mult = 時序霧氣倍率
+            option.TOD_Fog_mult.comment = 配置特定遊戲時間出現的霧氣總量。這不會影響大氣霧霾。
         option.Morning_Uniform_Fog = 早晨霧氣密度
         option.Noon_Uniform_Fog = 中午霧氣密度
         option.Evening_Uniform_Fog = 傍晚霧氣密度
@@ -189,8 +231,11 @@ screen.Fog = 霧氣設定
         option.PER_BIOME_ENVIRONMENT = 配合生態域環境
 
     screen.Cave_Fog = 洞穴霧氣
+        screen.Cave_Fog.comment = 配置在洞穴等非常黑暗的地方時所出現的霧氣的設定。
         option.Cave_Fog = 洞穴霧氣
+            option.Cave_Fog.comment = 開關黑暗區域出現的霧氣。著色器無法準確判斷你是否處於洞穴中，因此這種霧可能會出現在非洞穴的地方。 §a性能消耗：§r低。
         option.CaveFogFallOff = 霧氣衰減
+            option.CaveFogFallOff.comment = 配置霧氣梯度到達最亮部分的快慢。
         option.CaveFogColor_R = 霧氣-紅光
         option.CaveFogColor_G = 霧氣-綠光
         option.CaveFogColor_B = 霧氣-藍光
@@ -199,14 +244,20 @@ screen.Fog = 霧氣設定
         option.END_STORM_DENSTIY = 終界風暴密度
         option.NETHER_PLUME_DENSITY = 地獄煙霧密度
 
-screen.Clouds = 雲設定
+screen.Clouds = 雲層設定
+    screen.Clouds.comment = 配置與光線行進體積雲相關的設定。
     option.VOLUMETRIC_CLOUDS = 體積雲
-        option.VOLUMETRIC_CLOUDS.comment = 將其關閉會有更好的效能，同使使用遊戲原版雲的設定。
+        option.VOLUMETRIC_CLOUDS.comment = 開關體積雲。將其關閉會有更好的效能，同使使用遊戲原版雲的設定。 §a性能消耗：§r中到高。
     option.CLOUDS_QUALITY = 雲層解析度縮放
+        option.CLOUDS_QUALITY.comment = 配置體積雲的解析度。 §a性能消耗：§r高。
     option.CLOUDS_SHADOWS = 雲的影子
+        option.CLOUDS_SHADOWS.comment = 開關雲層投射到地面上的陰影及雲層下方的霧氣。§a性能消耗：§r低到中。
     option.Cloud_Speed = 雲層流速
+        option.Cloud_Speed.comment = 配置雲層隨著時間的推移而移動的速度。
     option.Rain_coverage = 雨天覆蓋範圍
+        option.Rain_coverage.comment = 配置雨天時雲層覆蓋天空的面積。
     option.Daily_Weather = 天氣循環
+        option.Daily_Weather.comment = 開關每天變化的天氣。 §b這是什麼？§r著色器每天輪換10個天氣設定檔。啟用此功能後無法變更任何雲層覆蓋設定。 §a性能消耗：§r低。
 
     option.CloudLayer0          = 小積雲
     option.CloudLayer0_coverage = 覆蓋範圍
@@ -225,6 +276,7 @@ screen.Clouds = 雲設定
 
 screen.DAILY_WEATHER = 天氣循環設定
 option.CHOOSE_RANDOM_WEATHER_PROFILE = 隨機天氣設定檔
+        option.CHOOSE_RANDOM_WEATHER_PROFILE.comment = §b這是什麼？§r配置著色器隨機挑選下列某一天的天氣。關閉此功能後，著色器將按順序挑選設定檔。
     screen.DAY0_WEATHER = 第0天的天氣設定檔
         option.DAY0_l0_coverage = 小積雲覆蓋範圍
         option.DAY0_l0_density = 小積雲密度
@@ -454,41 +506,66 @@ screen.Post_Processing = 後處理
 
 
 screen.Resource_Pack_Support = 資源包支援
+    screen.Resource_Pack_Support.comment = 使用資源包所提供的資訊來彩現的相關效果。
     screen.Reflections = 鏡像反射
+        screen.Reflections.comment = 配置使用LabPBR格式的資源包所提供的資訊來彩現的反射。
         option.Specular_Reflections = 鏡像反射
+                option.Specular_Reflections.comment = 開關LaPBR資源包的所有反射效果。這將啟用陽光反射，並允許啟用下列其他設定。 §a性能消耗：§r低。
         option.Screen_Space_Reflections = 螢幕空間反射
-        option.Rough_reflections = 反射粗糙度
+                option.Screen_Space_Reflections.comment = 開關螢幕空間反射。 §a性能消耗：§r中。
+        option.Rough_reflections = 細緻化漫反射
+            option.Rough_reflections.comment = 開關更細緻的表面粗糙度以獲得更高品質的反射。這將產生大量明顯的雜訊。 §a性能消耗：§r中到高。
         option.Sky_reflection = 倒影中的天空/霧氣
+            option.Sky_reflection.comment = 開關天空和霧氣的反射。 §a性能消耗：§r低到中。
         option.Dynamic_SSR_quality = 動態螢幕空間反射品質
+            option.Dynamic_SSR_quality.comment = 根據螢幕空間反射的可見度降低反射品質。可以提高性能但品質會降低。
         option.Roughness_Threshold = 反射閾值
+            option.Roughness_Threshold.comment = 如果表面粗糙度達到此閾值，則除陽光反射之外的所有反射效果都不會彩現。可以提高性能。
         option.Sun_specular_Strength = 陽光反射倍率
+            option.Sun_specular_Strength.comment = 配置陽光反射的亮度。
         option.reflection_quality = 螢幕空間反射品質
+            option.reflection_quality.comment = 配置螢幕空間反射的品質。
 
     screen.Emissives = 發光效果
+        screen.Emissives.comment = §b這是什麼？§r發光效果是指某物發出的光量，或某物發光的程度。
         option.Emissive_Brightness = 發光亮度
+            option.Emissive_Brightness.comment = 配置材質發光的亮度。
         option.Emissive_Curve = 發光曲線
+            option.Emissive_Curve.comment = 決定發光材質達到最亮點的快慢。1.0為線性。
         option.EMISSIVE_TYPE = 發光模式
+            option.EMISSIVE_TYPE.comment = 配置材質發光如何應用於遊戲世界。 §b硬編碼：§r由著色器決定。 §bLabSSS：§r由資源包決定。 §a性能消耗：§r非常低。
             value.EMISSIVE_TYPE.0 = 不發光
             value.EMISSIVE_TYPE.1 = 僅硬編碼
             value.EMISSIVE_TYPE.2 = 硬編碼 + Lab發光
             value.EMISSIVE_TYPE.3 = 僅硬Lab發光
 
 
-screen.POM = 視差遮蔽貼圖(POM)
+screen.POM = 視差遮蔽貼圖
+    screen.POM.comment = 配置使用資源包所提供的資訊來彩現的視差遮蔽貼圖相關的設定。
     option.POM = 視差遮蔽貼圖
-    option.MAX_ITERATIONS = POM品質(最大迭代次數)
+        option.POM.comment = §b這是什麼？§r透過使用資源包中的特殊圖像，來創建原先不存在的3D幾何圖形。這種效果基本上只會向內推，因此在以大角度觀察時可能會存在一些假影。 §a性能消耗：§r中到高。
+    option.MAX_ITERATIONS = 最大迭代次數
+        option.MAX_ITERATIONS.comment = 配置視差遮蔽貼圖效果的品質。如果你在近距離觀察時看到單一圖層，則增加此值會產生更多圖層，使它們變得不容易察覺。 §a性能消耗：§r高。
     option.POM_DEPTH = 視差遮蔽貼圖深度
-        option.POM_DEPTH.comment = 決定視差遮蔽貼圖的強度。
+        option.POM_DEPTH.comment = 視差遮蔽貼圖效果可以進入表面的深度。 §a性能消耗：§r非常低。
     option.MAX_DIST = 最大距離
-        option.MAX_DIST.comment = 計算POM的最大距離，單位為區塊。
+        option.MAX_DIST.comment = 視差遮蔽貼圖效果距離相機可以渲染的最大距離，單位為區塊。 §a性能消耗：§r高。
     option.Adaptive_Step_length = 動態品質
-    option.Horrible_slope_normals = 可怕的坡度法線
+        option.Adaptive_Step_length.comment = 這將提高視覺品質，而不需要提高實際品質。如果你非常近距離的觀察，或者有一個非常密集且變化劇烈的高度圖，會產生一些假影。
+    option.Horrible_slope_normals = 糟糕的坡度法線
+        option.Horrible_slope_normals.comment = 這是一個為側面提供視差遮蔽貼圖表面的糟糕策略。不建議使用。 §a性能消耗：§r低。
 
 
-screen.Porosity = 孔隙率/水坑
+screen.Porosity = 孔隙率/水窪
+    screen.Porosity.comment = 配置與浸濕和水窪相關的設定。
     option.Porosity = 孔隙率
-    option.Puddles = 水坑
-    option.Puddle_Size = 水坑尺寸倍率
+    option.Puddles = 水窪
+    option.Puddle_Size = 水窪尺寸倍率
+
+
+    option.Porosity.comment = §b這是什麼？§r孔隙率是描述某種材料的多孔程度，或是材料本質上可以容納多少水在內部。舉例而言，海綿的孔隙非常多；水被包含在其中並因此使其變暗。 §a性能消耗：§r低。
+    option.Puddles.comment = 開關雨天時的水窪。 §a性能消耗：§r低。
+    option.Puddle_Size.comment = 配置水窪的尺寸。
 
 option.MATERIAL_AO = 材質環境光遮蔽
 
@@ -516,132 +593,24 @@ option.DOF_QUALITY=景深
 		value.FOCUS_LASER_COLOR.5 = 白色
 
 option.AEROCHROME_MODE = Aerochrome模式
-option.AEROCHROME_PINKNESS = 紅:粉色比
-option.AEROCHROME_WOOL_ENABLED = 羊毛啟用Aerochrome模式
-
-option.AEROCHROME_MODE.comment = Infrared Film. Google "Aerochrome" to get an idea of what it does.
-option.AEROCHROME_PINKNESS.comment = Higher = Pink. Lower = Red
-option.AEROCHROME_WOOL_ENABLED.comment = Technically wool things should be affected but it ruins a lot of builds. Enable to be more technically correct.
-
+    option.AEROCHROME_MODE.comment = 紅外線底片。Google搜尋「Aerochrome」以了解它的特色。
+option.AEROCHROME_PINKNESS = 粉:紅色比
+    option.AEROCHROME_PINKNESS.comment = 數值越高顏色越粉，反之越紅。
+option.AEROCHROME_WOOL_ENABLED = Aerochrome模式-羊毛
+    option.AEROCHROME_WOOL_ENABLED.comment = 羊毛製品在技術上應該受到影響，但會破壞許多建築的樣貌。啟用此選項以在技術上更加正確的呈現。
 
 
 
 
-screen.Misc_Settings.comment = Random settings for DEBUGGING or other fun stuff.
-screen.Sun_and_Moon_Colors.comment = Configure the color of the sun or moon.
-option.sunPathRotation.comment = Configure the angle of the sun or moon
-option.sun_illuminance.comment = Configure the brightness of the sun
-option.moon_illuminance.comment = Configure the brightness of the moon
-
-screen.Direct_Light.comment = Configure settings related to the sun and shadows.
-
-screen.Shadows.comment = Configure the shadows from the sun to your liking.
-    option.SCREENSPACE_CONTACT_SHADOWS.comment = §bWhat is this?§r These are shadows for things that are far away, and on small details nearby. §aPERFORMANCE COST:§r low to medium; it is more expensive at higher resolutions.
-    option.RENDER_ENTITY_SHADOWS.comment =  §bWhat is this?§r Shadows on all types of entities, like mobs, chests, banners, or signs. §aPERFORMANCE COST:§r low to high; it is very expensive when there are many entities nearby.
-    option.shadowMapResolution.comment = The quality of shadows from the sun casted by things in the world. §aPERFORMANCE COST:§r medium to very high; Shadows must render the 3D world a second time from the perspective of the sun, this is why it cuts performance in half.
-    option.shadowDistance.comment = The maximum distance the shadowmap can render. The distance is not measured linearly in chunks when set to un-optimized.  §aPERFORMANCE COST:§r medium to very high; If the chunk render distance is high, the shadows will become more expensive.
-    option.OPTIMIZED_SHADOW_DISTANCE.comment = Render the shadows only in a sphere around you, limited to a max distance in chunks. Un-optimized does not render the shadows in a sphere and is not locked to chunks; it can cover alot more area with the same distance settings. The distance is not measured in chunks when set to un-optimized.  §aPERFORMANCE COST:§r low to medium. Optimized is faster, and unoptimized is slower.
-    screen.Filtering.comment = Configure the filtering effects applied to the shadows.
-        option.SHADOW_FILTER_SAMPLE_COUNT.comment = The quality of the basic shadow filter. This filter just softens the shadows. §aPERFORMANCE COST:§r low to medium; Increasing this should reduce some noise at the edge of shadows.
-        option.Min_Shadow_Filter_Radius.comment = The maximum softness of the basic shadow filter.
-        option.Variable_Penumbra_Shadows.comment = This effect softens the shadows more and more the farther the shadow gets from what casted it. This effect is used to create higher quality shadows and Sub-surface scattering. §aPERFORMANCE COST:§r low to high;
-        option.VPS_Search_Samples.comment = The quality of the variable penumbra shadow filter. §aPERFORMANCE COST:§r low to high; Increasing this should reduce some noise in the sub-surface scattering and very soft shadows.
-        option.Max_Shadow_Filter_Radius.comment = The maximum softness the shadows can get when far away from what casted it.
-        option.Max_Filter_Depth.comment = Configure the size of the sun. If the sun is larger, shadows get softer closer to what casts them.
-
-screen.Ambient_light.comment = Configure settings related to the lighting in shaded places
-    option.AO_Strength.comment = Configure the strength of the ambient occlusion created by SSAO, GTAO, RTAO, and SSGI. §bWhat is this?§r ambient occlusion is the small soft shadows in corners and such.
-    option.GI_Strength.comment = Configure the strength of the global illumination created by SSGI. §bWhat is this?§r global illumination in this scenario specifically is the light bouncing off a surface and onto some other area.
-    option.HQ_SSGI.comment = Toggle long range screen-space global illumination. §aPERFORMANCE COST:§r very high
-    option.Hand_Held_lights.comment = Toggle shader-side hand held lightsources. §aPERFORMANCE COST:§r very low
-    option.SKY_CONTRIBUTION_IN_SSRT.comment = Allow the RTAO or SSGI to take the entire sky and fog into account to create high quality lighting for shaded areas. This may introduce more noise. §aPERFORMANCE COST:§r medium
-
-    option.ambientOcclusionLevel.comment = Configure the strength of the ambient occlusion from vanilla minecraft. §bWhat is this?§r This ambient occlusion is in minecraft even without shaders enabled.
-    option.ambient_brightness.comment = Configure the brightnes of lighting in shaded places
-    option.MIN_LIGHT_AMOUNT.comment = Configure the minimum amount of light that can be in shaded places.
-    option.indirect_effect.comment = Toggle different types of effects to make lighting in shaded places higher quality. §aPERFORMANCE COSTS:§r. Vanilla AO: very low. SSAO: low to medium. GTAO: medium to high. RTAO or SSGI: high to very high
-
-    screen.Ambient_Colors.comment = Configure the color of light in shaded areas.
-    screen.Torch_Colors.comment = Configure the color of light from torches or other placed lightsources.
-
-    option.LPV_SIZE.comment = Configures the size (in blocks) of the volume for colored lighting.
-    option.LPV_SATURATION.comment = Configures the intensity of colored lighting.
-    option.LPV_TINT_SATURATION.comment = Configures the intensity of tinting by translucent blocks on colored lighting.
-    option.LPV_NORMAL_STRENGTH.comment = Configure the amount surface normals will affect lighting direction.
-    option.LPV_ENTITY_LIGHTS.comment = Allows entities to contribute to colored lighting.
-    option.LPV_REDSTONE_LIGHTS.comment = Allows redstone blocks to contribute to colored lighting.
-    option.LPV_COLORED_CANDLES.comment = Allows colored candles to emit matching colored lighting.
-    option.LPV_NOSHADOW_HACK.comment = Fix for Iris 1.7.0 and lower! Allows floodfill to work in Nether & End, but disables entity & dropped item lights.
-
-screen.Resource_Pack_Support.comment = A handfull of effects that use information provided by a resourcepack.
-    screen.Reflections.comment = Configure the reflections that use information provided by a LabPBR resourcepack.
-        option.Specular_Reflections.comment = Toggle all reflections for Labpbr packs. This enables the sun reflection, and allows other settings to be enabled below. §aPERFORMANCE COST:§r low
-        option.Screen_Space_Reflections.comment = Toggle screen-space reflections. §aPERFORMANCE COST:§r medium
-        option.Rough_reflections.comment = Toggle more detailed roughness for higher quality reflection. This will cause a good amount of visible noise. §aPERFORMANCE COST:§r medium to high
-        option.Sky_reflection.comment = Toggle reflections of the sky and fog. §aPERFORMANCE COST:§r low to medium.
-        option.Dynamic_SSR_quality.comment = This lowers the quality of screen-space reflections based on how visible they are. it can improve performance but lower the quality. 
-        option.Roughness_Threshold.comment = If the roughness reaches this threshold, all reflections except the sun do not render. it can improve performance.
-        option.Sun_specular_Strength.comment = Configure how bright the sun's reflection is.
-        option.reflection_quality.comment = Configure the quality of the screen-space reflections.
-
-screen.Subsurface_Scattering.comment = §bWhat is this?§r Sub-surface scattering is what happens when you put a bright light on your hand, and it starts to glow. The sun actually does the same thing to plants, cloth, skin, and other things.
-    option.SSS_TYPE.comment = Configure how the sub-surface scattering is applied to the world.  §bHardcoded:§r The shader decides what gets it. §bLabSSS:§r The resourcepack decides what gets it. §aPERFORMANCE COST:§r very low
-    option.MOB_SSS.comment = Toggle sub-surface scattering for mobs. players are included. §aPERFORMANCE COST:§r very low
-    option.MISC_BLOCK_SSS.comment = Toggle sub-surface scattering for random blocks it may not fit. this is for grass and sand mostly. §aPERFORMANCE COST:§r very low
-    option.Ambient_SSS.comment = §bWhat is this?§r sub-surface scattering from light coming from the sky, instead of the sun. §aPERFORMANCE COST:§r very low to medium; if SSAO is enabled this costs very little, but costs more if SSAO is OFF
-    option.ambientsss_brightness.comment = Configure the brightness of sub-surface scattering from the sky's light
-
-screen.Emissives.comment = §bWhat is this?§r Emissiveness is just how much light something is letting off, or how much something is glowing.
-    option.Emissive_Brightness.comment = Configure how bright the texture emission should be.
-    option.EMISSIVE_TYPE.comment = Configure how texture emission is applied to the world.  §bHardcoded:§r The shader decides what gets it. §bLabSSS:§r The resourcepack decides what gets it. §aPERFORMANCE COST:§r very low
-    option.Emissive_Curve.comment = This determines how quickly the emissive texture reaches its brightest point. 1.0 is linear.
-
-screen.POM.comment = Configure settings related to parallax occlusion mapping that uses information provided by a resourcepack.
-    option.POM.comment = §bWhat is this?§r This effect attempts to create 3D geometry where there previously was none, by using a special image from a resourcepack. This effect basically only pushes inwards, so some artifacts can exist when looking at steep angles. §aPERFORMANCE COST:§r medium to high
-    option.MAX_ITERATIONS.comment = Configure the quality of the parallax occlusion mapping effect. if you see individual layers when looking up close, inscreasing this makes more layers, so they will become harder to see. §aPERFORMANCE COST:§r high
-    option.POM_DEPTH.comment = How deep the parallax occlusion mapping effect can go into a surface. §aPERFORMANCE COST:§r very low
-    option.MAX_DIST.comment = The maximum distance from the camera that the parallax occlusion mapping effect can render. §aPERFORMANCE COST:§r high
-    option.Adaptive_Step_length.comment = This will increase visual quality without needing to increase the actual quality. This causes some artifacts if you look really close, or have a very busy heightmap with sharp varying heights. 
-    option.Horrible_slope_normals.comment = This is a poorly done implementation to give a surface to the sides of the parallax occlusion mapping. i do not recommend this. §aPERFORMANCE COST:§r low
-    
-screen.Porosity.comment = Configure settings related to wetness and puddles
-    option.Porosity.comment = §bWhat is this?§r Porosity is a description of how porous some material is, or essentially how much water can be held inside it. for examle, sponges are very porous; water is contained within and darkens it as a results. §aPERFORMANCE COST:§r low
-    option.Puddles.comment = Toggle puddles for when it rains. §aPERFORMANCE COST:§r low
-    option.Puddle_Size.comment = Configure the size of the puddles.
-
-screen.Fog.comment = Configure settings related to the raymarched volumetric fog, or distance based fog.
-    option.VL_RENDER_RESOLUTION.comment = Configure the resolution of the volumetric fog. §aPERFORMANCE COST:§r high
-    option.VL_SAMPLES.comment = Configure the quality of the volumetric fog. §aPERFORMANCE COST:§r high
-    option.BLOOMY_FOG.comment = Configure the strength of bloom that is applied to fog. §bWhat is this?§r This effect makes the fog look soft, it helps hide a little noise too. can cause some visible flickering on detailed edges. §aPERFORMANCE COST:§r very low
-    option.Haze_amount.comment = Configure how dense the atmosphere around you is. §bWhat is this?§r This is the blue haze you see in the distance.
-    option.RainFog_amount.comment = Configure how dense the fog gets when it rains.
-    option.RAYMARCH_CLOUDS_WITH_FOG.comment = §cWARNING§r: This setting is experimental and not very well made! you will need to increase fog samples to make it match the normal clouds. Toggle detailed fog when you go within or around a cloud. §aPERFORMANCE COST:§r high. 
-    option.BorderFog.comment = §bWhat is this?§r Toggle a fog that attempts to hide the chunks loading in. But because the sky is all over the place, it is difficult to do well. §aPERFORMANCE COST:§r very very low
-
-    screen.TOD_fog.comment = Configure the density of fog that appears at specific times of the day.
-        option.TOD_Fog_mult.comment = Configure how much total fog there is that appears at specific times during the day. this does not effect the atmospheric haze. 
-
-    screen.Cave_Fog.comment = Configure settings for fog that appears when you are in very dark places such as caves.
-        option.Cave_Fog.comment = Toggle the fog that appears in dark places. It is impossible to accurately tell when you are in a cave with a shader, so this fog might appear in places that are not a cave. §aPERFORMANCE COST:§r low
-        option.CaveFogFallOff.comment = Configure how quickly the fog gradient reaches its brightest part.
-
-screen.Clouds.comment = Configure settings related to the raymarched volumetric clouds.
-    option.VOLUMETRIC_CLOUDS.comment = Toggle the clouds. §aPERFORMANCE COST:§r medium to high
-    option.CLOUDS_QUALITY.comment = Configure the resolution of the volumetric clouds. §aPERFORMANCE COST:§r high
-    option.CLOUDS_SHADOWS.comment = Toggle shadows that are casted from the clouds onto the ground, and fog below them. §aPERFORMANCE COST:§r low to medium
-    option.Daily_Weather.comment = Toggle the weather that changes every day. §bWhat is this?§r There are 10 weather profiles that the shader cycles through every day. You cannot change any cloud coverage settings when this is enabled. §aPERFORMANCE COST:§r low
-    option.CHOOSE_RANDOM_WEATHER_PROFILE.comment = §bWhat is this?§r Configure the shader to randomly choose the weather from one of the days below. When this is turned off, the shader will choose the day in order.
-    option.Cloud_Speed.comment = Configure how fast the clouds move as the day goes by.
-    option.Rain_coverage.comment = Configure how much of the sky the clouds cover during rain.
 
 screen.World.comment = Configure settings for various things that happen in the world, from waving plants to water related settings.
     screen.Water.comment = Configure settings related to the water.
-        option.WATER_REFLECTIONS.comment = Toggle all reflections for translucent things. This allows other settings to be enabled below. §aPERFORMANCE COST:§r low-high
-        option.SCREENSPACE_REFLECTIONS.comment = Toggle screen-space reflections on translucent things. §aPERFORMANCE COST:§r medium
-        option.SSR_STEPS.comment = Configure the quality of the screen-space reflections on translucent things.  §aPERFORMANCE COST:§r medium to high
-        option.WATER_SUN_SPECULAR.comment = Toggle the sun and moon reflections on translucent things. §aPERFORMANCE COST:§r low
-        option.WATER_BACKGROUND_SPECULAR.comment = Toggle the sky and fog reflections on translucent things. §aPERFORMANCE COST:§r low to medium
-        option.Refraction.comment = Toggle refraction on translucent things. §bWhat is this?§r If you look at water, you can see the light refracting distorts what is in it. §aPERFORMANCE COST:§r low
+        option.WATER_REFLECTIONS.comment = Toggle all reflections for translucent things. This allows other settings to be enabled below. §a性能消耗：§r low-high
+        option.SCREENSPACE_REFLECTIONS.comment = Toggle screen-space reflections on translucent things. §a性能消耗：§r medium
+        option.SSR_STEPS.comment = Configure the quality of the screen-space reflections on translucent things.  §a性能消耗：§r medium to high
+        option.WATER_SUN_SPECULAR.comment = Toggle the sun and moon reflections on translucent things. §a性能消耗：§r low
+        option.WATER_BACKGROUND_SPECULAR.comment = Toggle the sky and fog reflections on translucent things. §a性能消耗：§r low to medium
+        option.Refraction.comment = Toggle refraction on translucent things. §b這是什麼？§r If you look at water, you can see the light refracting distorts what is in it. §a性能消耗：§r low
         option.Dirt_Amount.comment = Configure how much dirt is in water. This controls how much fog is within water.
         option.Water_Top_Layer.comment = Configure the Y coordinate at which the ocean should be in the world.
         
@@ -649,15 +618,15 @@ screen.World.comment = Configure settings for various things that happen in the 
 
 screen.Climate.comment = Configure settings related to the climate, like seasonal colors, daily weather, and biome specific fog.
     screen.Seasons.comment = Seasonal colors that cycle through, summer, fall, winter, and spring.
-        option.Seasons.comment = Seasonal colors that cycle through, summer, fall, winter, and spring. §aPERFORMANCE COST:§r low
+        option.Seasons.comment = Seasonal colors that cycle through, summer, fall, winter, and spring. §a性能消耗：§r low
         option.Season_Length.comment = Control how long a single season lasts, in minecraft days.
-        option.Snowy_Winter.comment = Toggle snow during winter. §aPERFORMANCE COST:§r low
+        option.Snowy_Winter.comment = Toggle snow during winter. §a性能消耗：§r low
         screen.Summer_colors.comment = Configure the colors of vegetation during summer.
         screen.Fall_colors.comment = Configure the colors of vegetation during fall.
         screen.Winter_colors.comment = Configure the colors of vegetation during winter.
         screen.Spring_colors.comment = Configure the colors of vegetation during spring.
     
-    option.PER_BIOME_ENVIRONMENT.comment = Toggle all special environments that only appear in some biomes. §aPERFORMANCE COST:§r low
+    option.PER_BIOME_ENVIRONMENT.comment = Toggle all special environments that only appear in some biomes. §a性能消耗：§r low
 
         screen.SWAMP.comment = Configure the environment in this biome type.
             option.SWAMP_ENV.comment = Toggle the environment only for this biome type. The other biome environments remain active even if this one is disabled.
@@ -670,7 +639,7 @@ screen.Climate.comment = Configure settings related to the climate, like seasona
 
 
 screen.Waving_Stuff.comment = Configure settings related to waving things.
-    option.WAVY_PLANTS.comment = Toggle waving plants. §aPERFORMANCE COST:§r very low
+    option.WAVY_PLANTS.comment = Toggle waving plants. §a性能消耗：§r very low
     option.WAVY_STRENGTH.comment = Configure the amount the plants wave.
     option.WAVY_SPEED.comment = Configure the speed the plants wave.
 
@@ -680,10 +649,10 @@ screen.Post_Processing.comment = Configure settings for all post processing effe
     screen.DepthOfField.comment = Configure settings related to depth of field.
     screen.Purkinje_effect.comment = Configure settings related to the purkinje effect.
     option.SHARPENING.comment = Configure the amount of contrast adapitive sharpening that is applied to the image. This can really bring out lost details from anti-aliasing or upscaling.
-    option.BLOOM_STRENGTH.comment = Configure the amount of bloom that is applied to the image. §bWhat is this?§r Bloom is the soft glow on everything, to describe that something is bright or not.
+    option.BLOOM_STRENGTH.comment = Configure the amount of bloom that is applied to the image. §b這是什麼？§r Bloom is the soft glow on everything, to describe that something is bright or not.
     screen.TAA_OPTIONS.comment = Configure settings related to anti-aliasing.
-        option.SCREENSHOT_MODE.comment = Toggle frame accumulation to get a low noise and high quality image. §bWhat is this?§r It stacks frames that happend onto the next frame that is generated, so it is like a long exposure photo.
-        option.TAA.comment = Toggle temporal anti-aliasing. This removes all jagged edges on things, softens the image, and helps remove noise for many effects. This will cause ghosting or trailing because it uses past frames for extra information on the world. §aPERFORMANCE COST:§r low
+        option.SCREENSHOT_MODE.comment = Toggle frame accumulation to get a low noise and high quality image. §b這是什麼？§r It stacks frames that happend onto the next frame that is generated, so it is like a long exposure photo.
+        option.TAA.comment = Toggle temporal anti-aliasing. This removes all jagged edges on things, softens the image, and helps remove noise for many effects. This will cause ghosting or trailing because it uses past frames for extra information on the world. §a性能消耗：§r low
         option.BLEND_FACTOR.comment = Configure how much of frame history is used. high numbers means it relies less on frame history, so it may look flickery and noisy. low numbers rely more on frame history, so it may look less moisy, but more smudged with more trailing.
         option.TAA_UPSCALING.comment = Toggle temporal upscaling. This retains a good amount of quality from a lower resolution image when it upscales. so you can still have a high looking resolution compared to typical upsanpling and still have better performance.
         option.SCALE_FACTOR.comment = Configure from what fraction of your resolution to upscale from. Below 0.5 is not recommended at all i only have it as an option because it's funny :P
@@ -691,34 +660,34 @@ screen.Post_Processing.comment = Configure settings for all post processing effe
 		option.TONE_CURVE.comment = Enable the tone curve. This is independent from color grading and is applied first.
 		option.COLOR_GRADING_ENABLED.comment = Enable color grading. The RGB sliders will not affect the brightness. This is applied after the tone curve
 
-option.RESOURCEPACK_SKY.comment = Toggle resourcepack sky support. Configure settings to use the whole resourcepack sky, or keep the shader's sun and moon. §aPERFORMANCE COST:§r very low
+option.RESOURCEPACK_SKY.comment = Toggle resourcepack sky support. Configure settings to use the whole resourcepack sky, or keep the shader's sun and moon. §a性能消耗：§r very low
 option.SKY_GROUND = Atmosphere ground
 
-option.MATERIAL_AO.comment = Toggle the use of ambient occlusion based on what the resourcepack provides. §aPERFORMANCE COST:§r very low
+option.MATERIAL_AO.comment = Toggle the use of ambient occlusion based on what the resourcepack provides. §a性能消耗：§r very low
 option.WATER_WAVE_STRENGTH.comment = configure how strong the waves appear.
-option.MOONPHASE_BASED_MOONLIGHT.comment = §bWhat is this?§r every night, the moon has different lighting. This setting adjusts the moonlight brightness based on how much of the moon is glowing. §aPERFORMANCE COST:§r nearly nothing
+option.MOONPHASE_BASED_MOONLIGHT.comment = §b這是什麼？§r every night, the moon has different lighting. This setting adjusts the moonlight brightness based on how much of the moon is glowing. §a性能消耗：§r nearly nothing
 
-option.END_STORM_DENSTIY.comment =  §bWhat is this?§r This is the dark cloudy fog in the end. Confingure the density of the end storm.
-option.NETHER_PLUME_DENSITY.comment =  §bWhat is this?§r This is the thick, glowing smoke towers in the nether. Confingure the density of the nether smoke.
+option.END_STORM_DENSTIY.comment =  §b這是什麼？§r This is the dark cloudy fog in the end. Confingure the density of the end storm.
+option.NETHER_PLUME_DENSITY.comment =  §b這是什麼？§r This is the thick, glowing smoke towers in the nether. Confingure the density of the nether smoke.
 
-option.CloudLayer0.comment          = Toggle the layer of clouds that are small. §aPERFORMANCE COST:§r medium
+option.CloudLayer0.comment          = Toggle the layer of clouds that are small. §a性能消耗：§r medium
 option.CloudLayer0_coverage.comment = Configure how much of the sky these clouds cover.
 option.CloudLayer0_density.comment  = Configure how dense, or thick these clouds are.
 option.CloudLayer0_height.comment   = Configure the height at which these clouds fly at.
 
-option.CloudLayer1.comment          = Toggle the layer of clouds that are large. §aPERFORMANCE COST:§r medium
+option.CloudLayer1.comment          = Toggle the layer of clouds that are large. §a性能消耗：§r medium
 option.CloudLayer1_coverage.comment = Configure how much of the sky these clouds cover.
 option.CloudLayer1_density.comment  = Configure how dense, or thick these clouds are.
 option.CloudLayer1_height.comment   = Configure the height at which these clouds fly at. §cTHESE CANNOT BE LOWER THAN THE SMALL CLOUDS§r
 
-option.CloudLayer2.comment          = Toggle the layer of clouds that are very high and thin. §aPERFORMANCE COST:§r low
+option.CloudLayer2.comment          = Toggle the layer of clouds that are very high and thin. §a性能消耗：§r low
 option.CloudLayer2_coverage.comment = Configure how much of the sky these clouds cover.
 option.CloudLayer2_density.comment  = Configure how dense, or thick these clouds are.
 option.CloudLayer2_height.comment   = Configure the height at which these clouds fly at. §cTHESE CANNOT BE LOWER THAN THE LARGE CLOUDS§r
 
-option.SKY_GROUND.comment = §bWhat is this?§r This is the dark bottom half of the sky that WOULD be the ground, if minecraft had infinite render distance. §aPERFORMANCE COST:§r very very low. §cdisabling this is very slightly slower than having it on due to extra math.§r
-option.SNELLS_WINDOW.comment = §bWhat is this?§r this is the dark reflective circle you see when under-water. This is an approximation of a thing that happens in reality known as "total internal reflection". §aPERFORMANCE COST:§r very very very small.
-option.entityShadowDistanceMul.comment = §bWhat is this?§r Configure how far shadows should work for entities. This is good if you want to keep entity shadows and improved performance in high entity areas.
+option.SKY_GROUND.comment = §b這是什麼？§r This is the dark bottom half of the sky that WOULD be the ground, if minecraft had infinite render distance. §a性能消耗：§r very very low. §cdisabling this is very slightly slower than having it on due to extra math.§r
+option.SNELLS_WINDOW.comment = §b這是什麼？§r this is the dark reflective circle you see when under-water. This is an approximation of a thing that happens in reality known as "total internal reflection". §a性能消耗：§r very very very small.
+option.entityShadowDistanceMul.comment = §b這是什麼？§r Configure how far shadows should work for entities. This is good if you want to keep entity shadows and improved performance in high entity areas.
 
 screen.DISTANT_HORIZONS_SETTINGS = Distant Horizons - §cIRIS REQUIRED§r
 option.DH_OVERDRAW_PREVENTION = Overdraw prevention
@@ -749,4 +718,4 @@ option.DISTANT_HORIZONS_SHADOWMAP.comment =  §cTHIS SETTING WILL DESTROY PERFOR
 option.TOGGLE_VL_FOG = Toggle Volumetric Fog
 option.TOGGLE_VL_FOG.comment = one big button to just turn all the fog off.
 
-option.TRANSLUCENT_COLORED_SHADOWS.comment = §bWhat is this?§r This effect allows translucent things like stained glass to color the sunlight as it passes through it. §aPERFORMANCE COST:§r medium
+option.TRANSLUCENT_COLORED_SHADOWS.comment = §b這是什麼？§r This effect allows translucent things like stained glass to color the sunlight as it passes through it. §a性能消耗：§r medium
